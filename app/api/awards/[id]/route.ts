@@ -73,7 +73,7 @@ export async function GET(
   try {
     await connectDB();
 
-    const { id } = await params;
+    const { id } = params;
 
     const award = await Award.findById(id);
 
