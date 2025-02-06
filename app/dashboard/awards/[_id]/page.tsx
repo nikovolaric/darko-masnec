@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Edit award/festival",
 };
 
-async function Page({ params }: { params: { _id: string } }) {
+async function Page({ params }: { params: Promise<{ _id: string }> }) {
   const { _id } = await params;
 
   return (
