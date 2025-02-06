@@ -32,7 +32,11 @@ export async function generateMetadata({
 async function Page({
   searchParams,
 }: {
-  searchParams: { videogame?: boolean; video?: boolean; painting?: boolean };
+  searchParams: Promise<{
+    videogame?: boolean;
+    video?: boolean;
+    painting?: boolean;
+  }>;
 }) {
   const params = await searchParams;
   return (
