@@ -8,11 +8,11 @@ import SubMenu from "../_components/projects/SubMenu";
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams?: {
+  searchParams?: Promise<{
     videogame?: boolean;
     video?: boolean;
     painting?: boolean;
-  };
+  }>;
 }) {
   const params = await searchParams;
   if (!params?.videogame && !params?.video && !params?.painting) {
