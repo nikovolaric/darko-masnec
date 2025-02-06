@@ -68,12 +68,12 @@ export async function DELETE(
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } },
+  { params }: { params: { id: string } },
 ) {
   try {
     await connectDB();
 
-    const { id } = await context.params;
+    const { id } = await params;
 
     const award = await Award.findById(id);
 
