@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await connectDB();
@@ -47,7 +47,7 @@ export async function DELETE(
         { status: 401 },
       );
 
-    const { id } = await context.params;
+    const { id } = await params;
 
     await Exhibition.findByIdAndDelete(id);
 
@@ -68,12 +68,12 @@ export async function DELETE(
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await connectDB();
 
-    const { id } = await context.params;
+    const { id } = await params;
 
     const exhibition = await Exhibition.findById(id);
 
@@ -95,7 +95,7 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await connectDB();
@@ -135,7 +135,7 @@ export async function PATCH(
         { status: 401 },
       );
 
-    const { id } = await context.params;
+    const { id } = await params;
     const data = await req.json();
 
     await Exhibition.findByIdAndUpdate(id, data);
