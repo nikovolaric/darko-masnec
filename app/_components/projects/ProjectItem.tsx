@@ -89,7 +89,7 @@ function ProjectItem({ project, i }: { project: iProject; i: number }) {
       {selecetedImg && (
         <div className={`${selecetedImg ? "absolute left-0" : "relative"}`}>
           <div
-            className="absolute left-0 top-0 z-50 flex h-dvh w-screen flex-col bg-black/90 py-52 sm:pt-10 md:pb-52 md:pt-10 lg:pb-80"
+            className="absolute left-0 top-0 z-[100] flex h-dvh w-screen flex-col bg-black/90 py-52 sm:pt-10 md:pb-52 md:pt-10 lg:pb-80"
             id={project._id}
           >
             <XMarkIcon

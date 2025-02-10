@@ -8,7 +8,7 @@ function Footer() {
 
   return (
     <footer
-      className={`absolute left-0 z-[998] mt-24 w-full bg-primary/75 py-4 text-neutral ${pathname.startsWith("/dashboard") || pathname === "/login" ? "hidden" : ""}`}
+      className={`absolute left-0 z-50 mt-24 w-full bg-primary/75 py-4 text-neutral ${pathname.startsWith("/dashboard") || pathname === "/login" ? "hidden" : ""}`}
     >
       <div className="mx-4 flex max-w-[1440px] flex-col gap-6 text-sm md:mx-8 lg:mx-20 lg:grid lg:grid-cols-2 lg:text-base xl:mx-auto xl:px-20">
         <p className="font-semibold">
