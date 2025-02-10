@@ -66,20 +66,20 @@ function ProjectItem({ project, i }: { project: iProject; i: number }) {
 
   useEffect(
     function () {
-      if (selecetedImg) {
-        document.getElementById(project._id)?.scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-        });
-      }
+      document.getElementById(project._id)?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
 
-      setTimeout(() => {
+      setTimeout(function () {
         if (selecetedImg) {
           document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
         } else {
           document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
         }
-      }, 50);
+      }, 100);
     },
     [project._id, selecetedImg],
   );

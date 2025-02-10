@@ -17,7 +17,7 @@ function ContactForm() {
   }
 
   return (
-    <div className="flex flex-col gap-5 tracking-more lg:mx-auto lg:w-1/2 lg:gap-9">
+    <div className="flex flex-col gap-5 tracking-more md:mx-auto md:w-3/4 lg:w-1/2 lg:gap-9">
       <h3 className="text-xl lg:text-2xl">Contact me</h3>
       <form className="flex flex-col gap-4" action={handleAction}>
         <input

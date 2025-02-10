@@ -14,12 +14,12 @@ async function HomeBanner() {
   const { image, title } = banners[0];
 
   return (
-    <div className="relative flex h-[680px] w-full items-end">
+    <div className="relative flex h-[450px] w-full items-end md:h-[680px]">
       <Image
         src={`https://drmasnec.s3.eu-central-1.amazonaws.com/${image}`}
         alt="Home banner"
         fill
-        sizes="(min-width: 1024px) 95vw, 80vw"
+        sizes="100vw"
         className="object-cover"
       />
       {title && (

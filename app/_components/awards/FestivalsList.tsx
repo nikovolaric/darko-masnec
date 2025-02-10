@@ -18,9 +18,8 @@ async function FestivalsList() {
             location: string;
             type?: string;
             _id: string;
-          }) => (
-            <AwardsListItem award={el} key={el._id} festivals />
-          ),
+          }) =>
+            el.festival && <AwardsListItem award={el} key={el._id} festivals />,
         )}
       </div>
     </div>

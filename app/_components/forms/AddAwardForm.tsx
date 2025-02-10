@@ -44,8 +44,7 @@ function AddAwardForm() {
           type="text"
           placeholder="Type of festival"
           name="type"
-          required
-          autoComplete="off"
+                    autoComplete="off"
           className={input}
         />
       </div>

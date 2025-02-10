@@ -8,7 +8,7 @@ async function Paintings() {
   );
 
   return (
-    <div className="mt-24 lg:mt-40 lg:grid lg:grid-cols-5 lg:gap-5">
+    <div className="mt-24 grid grid-cols-2 gap-5 lg:mt-40 lg:grid-cols-5">
       {projects.map(
         (project: { title: string; _id: string; mainImage: string }) => (
           <PaintingItem key={project._id} project={project} images={images} />

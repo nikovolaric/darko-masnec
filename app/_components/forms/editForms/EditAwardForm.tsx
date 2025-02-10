@@ -64,7 +64,6 @@ function EditAwardForm({
           type="text"
           placeholder="Type of festival"
           name="type"
-          required
           autoComplete="off"
           className={input}
           defaultValue={type}

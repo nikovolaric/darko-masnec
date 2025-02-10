@@ -28,10 +28,12 @@ function PaintingItem({
       setTimeout(function () {
         if (selecetedImg) {
           document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
         } else {
           document.body.style.overflow = "auto";
+          document.body.style.touchAction = "auto";
         }
-      }, 50);
+      }, 100);
     },
     [project._id, selecetedImg],
   );
@@ -49,7 +51,7 @@ function PaintingItem({
       {selecetedImg && (
         <div className={`${selecetedImg ? "absolute left-0" : "relative"}`}>
           <div
-            className="absolute left-0 top-0 z-[100] flex h-dvh w-screen flex-col bg-black/90 py-52 sm:pt-10 md:pb-52 md:pt-10 lg:pb-80"
+            className="absolute left-0 top-0 z-[100] flex h-dvh w-screen flex-col bg-black/90 pb-52 pt-10 sm:pt-10 md:pb-52 md:pt-10 lg:pb-80"
             id={project._id}
           >
             <XMarkIcon
