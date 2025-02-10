@@ -23,6 +23,7 @@ function EditAnimatedFilmForm({
     director?: string;
     scriptwriters?: string;
     animation?: string;
+    screenplay?: string;
     music?: string;
     sound?: string;
     editing?: string;
@@ -47,6 +48,7 @@ function EditAnimatedFilmForm({
     director,
     scriptwriters,
     animation,
+    screenplay,
     music,
     sound,
     editing,
@@ -206,6 +208,14 @@ function EditAnimatedFilmForm({
           autoComplete="off"
           className={input}
           defaultValue={animation}
+        />
+        <input
+          type="text"
+          placeholder="Screenplay"
+          name="screenplay"
+          autoComplete="off"
+          className={input}
+          defaultValue={screenplay}
         />
         <input
           type="text"

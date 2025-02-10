@@ -5,7 +5,7 @@ function Page() {
     <>
       <Header />
       <main className="mt-12 flex flex-col gap-16 lg:mt-24 lg:gap-36">
-        <p className="text-center text-2xl font-bold">
+        <p className="h-[40dvh] text-center text-xl font-bold">
           Work in progress page is currently under construction and it will be
           available shortly.
         </p>

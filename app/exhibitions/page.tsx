@@ -3,6 +3,7 @@ import Header from "../_components/Header";
 import ExhibitionList from "../_components/exhibitions/ExhibitionList";
 import CollabsList from "../_components/exhibitions/CollabsList";
 import { Metadata } from "next";
+import Spinner from "../_components/Spinner";
 
 export const metadata: Metadata = {
   title: "Exhibitions list",
@@ -13,10 +14,8 @@ function Page() {
     <>
       <Header />
       <main className="mt-12 flex flex-col gap-16 lg:mt-24 lg:gap-36">
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<Spinner />}>
           <ExhibitionList />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
           <CollabsList />
         </Suspense>
       </main>

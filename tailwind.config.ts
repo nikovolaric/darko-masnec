@@ -10,7 +10,7 @@ export default {
     extend: {
       colors: {
         primary: "#000000",
-        secondary: "#1447A7",
+        secondary: "#3e3acc",
         neutral: "#EBEBEB",
       },
       letterSpacing: {

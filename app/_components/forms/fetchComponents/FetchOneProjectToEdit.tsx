@@ -17,7 +17,7 @@ async function FetchOneProjectToEdit({ id }: { id: string }) {
       {project.category === "interactive/videogame" && (
         <EditInterActiveVideogameForm project={project} />
       )}
-      {project.category === "installation/video" && (
+      {project.category === "installations/video" && (
         <EditInterActiveVideoForm project={project} />
       )}
       {project.category === "painting" && (
@@ -29,7 +29,7 @@ async function FetchOneProjectToEdit({ id }: { id: string }) {
             ? "/dashboard/animatedfilms"
             : project.category === "interactive/videogame"
               ? "/dashboard/interactive-videogames"
-              : project.category === "installation/video"
+              : project.category === "installations/video"
                 ? "/dashboard/installation-video"
                 : "/dashboard/paintings"
         }

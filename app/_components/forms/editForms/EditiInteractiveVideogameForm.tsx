@@ -29,8 +29,18 @@ function EditInterActiveVideogameForm({
     imgs?: string[];
   };
 }) {
-  const { title, year, music, sound, link, description, mainImage, _id, imgs } =
-    project;
+  const {
+    title,
+    subtitle,
+    year,
+    music,
+    sound,
+    link,
+    description,
+    mainImage,
+    _id,
+    imgs,
+  } = project;
 
   const [file, setFile] = useState<File | undefined>(undefined);
   const [fileUrl, setFileUrl] = useState<string>(mainImage);
@@ -145,6 +155,14 @@ function EditInterActiveVideogameForm({
         />
         <input
           type="text"
+          placeholder="Subtitle"
+          name="subtitle"
+          autoComplete="off"
+          className={input}
+          defaultValue={subtitle}
+        />
+        <input
+          type="text"
           placeholder="Music"
           name="music"
           autoComplete="off"
@@ -173,6 +191,7 @@ function EditInterActiveVideogameForm({
           className={input}
           defaultValue={description}
         />
+        <div />
         <input
           type="file"
           id="mainFile"
@@ -250,7 +269,12 @@ function EditInterActiveVideogameForm({
         </div>
         {curImgs &&
           curImgs.map((img: string, i: number) => (
-            <input key={(i + 1) * 10000} name="imgs" defaultValue={img} />
+            <input
+              key={(i + 1) * 10000}
+              name="imgs"
+              defaultValue={img}
+              hidden
+            />
           ))}
         {imgsFiles &&
           imgsFiles.map((img: { name: string }, i: number) => (

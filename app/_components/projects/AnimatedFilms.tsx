@@ -10,6 +10,7 @@ interface iProject {
   sound?: string;
   music?: string;
   animation?: string;
+  screenplay?: string;
   aspectRatio?: string;
   compositing?: string;
   director?: string;
@@ -19,15 +20,16 @@ interface iProject {
   producer?: string;
   scriptwriters?: string;
   technique?: string;
-  year?: number;
+  year?: string;
   _id: string;
+  category: string;
 }
 
 async function AnimatedFilms() {
   const { projects } = await getAllProjects("animated film");
 
   return (
-    <div className="mt-24 lg:mt-40">
+    <div className="mt-24 flex flex-col gap-20 lg:mt-40 lg:gap-52">
       {projects.map((project: iProject, i: number) => (
         <ProjectItem key={project._id} project={project} i={i} />
       ))}

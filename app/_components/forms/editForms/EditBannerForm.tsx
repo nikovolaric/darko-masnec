@@ -1,6 +1,11 @@
 "use client";
 
-import { createProject, signS3Image } from "@/app/_lib/actions";
+import {
+  editBanner,
+  signS3Image,
+  signS3ImageToDelete,
+  temporaryDeleteBanner,
+} from "@/app/_lib/actions";
 import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -8,10 +13,16 @@ import { useFormStatus } from "react-dom";
 const input =
   "h-fit rounded-md border border-gray-300 px-4 py-1 drop-shadow-md";
 
-function AddInteractiveVideoForm() {
+function EditBannerForm({
+  banner,
+}: {
+  banner: { title: string; image: string; _id: string };
+}) {
+  const { title, image, _id } = banner;
+
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [fileUrl, setFileUrl] = useState<string>("");
-  const [imgsFiles, setImgsFiles] = useState<File[] | undefined>(undefined);
+  const [fileUrl, setFileUrl] = useState<string>(image);
+  const [error, setError] = useState<string>("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const eFile = e.target.files?.[0];
@@ -26,16 +37,22 @@ function AddInteractiveVideoForm() {
     }
   }
 
-  function handleMultipleChange(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.files) {
-      setImgsFiles([...e.target.files]);
-    }
-  }
-
-  function handleClick(e: FormEvent) {
+  async function handleClick(e: FormEvent) {
     e.preventDefault();
     setFile(undefined);
     setFileUrl("");
+
+    if (fileUrl === image) {
+      const deleteResult = await signS3ImageToDelete(image);
+      if (deleteResult.success) {
+        const { url: deleteUrl } = deleteResult.success;
+        await fetch(deleteUrl, { method: "DELETE" });
+        await temporaryDeleteBanner(_id);
+      } else {
+        console.error("Failed to get delete URL");
+        setError("An error occurred. Please try again later.");
+      }
+    }
   }
 
   async function handleAction(formData: FormData) {
@@ -53,24 +70,15 @@ function AddInteractiveVideoForm() {
         });
       }
 
-      if (imgsFiles) {
-        imgsFiles.forEach(async (file) => {
-          const result = await signS3Image(file.name);
-          const { url } = result.success;
+      const data = await editBanner(formData, _id);
 
-          await fetch(url, {
-            method: "PUT",
-            body: file,
-            headers: {
-              "Content-Type": file.type,
-            },
-          });
-        });
+      if (data) {
+        setError(data);
+        return;
       }
-
-      await createProject(formData, "installations/video");
     } catch (error) {
       console.error(error);
+      setError("An error occurred. Please try again later.");
     }
   }
 
@@ -79,46 +87,13 @@ function AddInteractiveVideoForm() {
       <div className="grid grid-cols-2 gap-4">
         <input
           type="text"
-          placeholder="Title"
+          placeholder="Title (title will be displayed on the banner) - optional"
           name="title"
-          required
           autoComplete="off"
           className={input}
+          defaultValue={title}
         />
-        <input
-          type="text"
-          placeholder="Original title"
-          name="originalTitle"
-          className={input}
-          autoComplete="off"
-        />
-        <input
-          type="text"
-          placeholder="Subtitle"
-          name="subtitle"
-          autoComplete="off"
-          className={input}
-        />
-        <input
-          type="text"
-          placeholder="Year"
-          name="year"
-          autoComplete="off"
-          className={input}
-        />
-        <input
-          type="text"
-          placeholder="Link"
-          name="link"
-          autoComplete="off"
-          className={input}
-        />
-        <textarea
-          placeholder="Description"
-          name="description"
-          className={input}
-          required
-        />
+        <div />
         <input
           type="file"
           id="mainFile"
@@ -127,16 +102,20 @@ function AddInteractiveVideoForm() {
           onChange={handleChange}
         />
         {file && (
-          <input type="text" name="mainImage" defaultValue={file.name} hidden />
+          <input type="text" name="image" defaultValue={file.name} hidden />
         )}
         <label
           htmlFor="mainFile"
           className={`bg-secondary text-neutral ${file ? "" : "hover:bg-primary"} h-fit w-fit cursor-pointer rounded-md border border-gray-300 px-4 py-1 drop-shadow-md transition-colors duration-300`}
         >
-          {file ? (
+          {fileUrl ? (
             <div className="flex items-center gap-8">
               <Image
-                src={fileUrl}
+                src={
+                  file
+                    ? fileUrl
+                    : `https://drmasnec.s3.eu-central-1.amazonaws.com/${fileUrl}`
+                }
                 alt="file"
                 width={100}
                 height={150}
@@ -150,36 +129,12 @@ function AddInteractiveVideoForm() {
               </button>
             </div>
           ) : (
-            "Upload main image"
+            "Upload banner"
           )}
         </label>
-        <input
-          type="file"
-          id="otherFiles"
-          multiple
-          hidden
-          accept="image/*"
-          onChange={handleMultipleChange}
-        />
-        <label
-          htmlFor="otherFiles"
-          className="h-fit w-fit cursor-pointer rounded-md border border-gray-300 bg-secondary px-4 py-1 text-neutral drop-shadow-md transition-colors duration-300 hover:bg-primary"
-        >
-          {imgsFiles
-            ? `${imgsFiles.length} imges waiting to be uploaded`
-            : "Upload other images"}
-        </label>
-        {imgsFiles &&
-          imgsFiles.map((img: { name: string }, i: number) => (
-            <input
-              key={(i + 1) * 10}
-              name="imgs"
-              defaultValue={img.name}
-              hidden
-            />
-          ))}
       </div>
-      {file && (
+      {error && <div className="font-bold text-red-500">{error}</div>}
+      {fileUrl && (
         <div className="self-end">
           <Button />
         </div>
@@ -201,4 +156,4 @@ function Button() {
   );
 }
 
-export default AddInteractiveVideoForm;
+export default EditBannerForm;

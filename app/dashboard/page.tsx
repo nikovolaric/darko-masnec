@@ -1,8 +1,10 @@
 import {
+  AdjustmentsHorizontalIcon,
   CodeBracketIcon,
   FilmIcon,
   ListBulletIcon,
   PaintBrushIcon,
+  PuzzlePieceIcon,
   TrophyIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
@@ -83,6 +85,28 @@ async function Page() {
               Exhibitions lists
               <span className="flex justify-center">
                 <ListBulletIcon className="h-6" />
+              </span>
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/dashboard/inprogress"
+              className="flex flex-col border-2 bg-gray-100 py-12 drop-shadow-lg transition-colors duration-300 hover:bg-gray-300"
+            >
+              Work in progress
+              <span className="flex justify-center">
+                <PuzzlePieceIcon className="h-6" />
+              </span>
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/dashboard/banner"
+              className="flex flex-col border-2 bg-gray-100 py-12 drop-shadow-lg transition-colors duration-300 hover:bg-gray-300"
+            >
+              Homepage banner
+              <span className="flex justify-center">
+                <AdjustmentsHorizontalIcon className="h-6" />
               </span>
             </Link>
           </div>

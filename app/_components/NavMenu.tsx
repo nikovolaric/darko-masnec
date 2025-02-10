@@ -31,7 +31,7 @@ function NavMenu() {
   return (
     <>
       <nav
-        className={`tracking-more pt-8 lg:hidden ${pathname !== "/" ? "border-b border-primary py-12" : ""}`}
+        className={`pt-8 tracking-more lg:hidden ${pathname !== "/" ? "border-b border-primary py-12" : ""}`}
       >
         <div className="flex items-center justify-between">
           <Logo />
@@ -47,22 +47,34 @@ function NavMenu() {
                 onClick={handleClick}
               />
               <ul className="mt-10 flex flex-col gap-8 text-xl">
-                <li>
+                <li
+                  className={`${pathname === "/projects" ? "font-semibold" : ""}`}
+                >
                   <Link href="/projects">Projects</Link>
                 </li>
-                <li>
+                <li
+                  className={`${pathname === "/inprogress" ? "font-semibold" : ""}`}
+                >
                   <Link href="/inprogress">Work in progress</Link>
                 </li>
-                <li>
+                <li
+                  className={`${pathname === "/awards-festivals" ? "font-semibold" : ""}`}
+                >
                   <Link href="/awards-festivals">Awards & Festivals</Link>
                 </li>
-                <li>
+                <li
+                  className={`${pathname === "/exhibitions" ? "font-semibold" : ""}`}
+                >
                   <Link href="/exhibitions">Exhibitions list</Link>
                 </li>
-                <li>
+                <li
+                  className={`${pathname === "/about" ? "font-semibold" : ""}`}
+                >
                   <Link href="/about">About</Link>
                 </li>
-                <li>
+                <li
+                  className={`${pathname === "/contact" ? "font-semibold" : ""}`}
+                >
                   <Link href="/contact">Contact</Link>
                 </li>
               </ul>
@@ -71,26 +83,32 @@ function NavMenu() {
         </div>
       </nav>
       <nav
-        className={`tracking-more hidden pt-10 lg:flex lg:flex-col lg:items-center lg:gap-20 ${pathname !== "/" ? "border-b border-primary py-12" : ""}`}
+        className={`hidden pt-10 tracking-more lg:flex lg:flex-col lg:items-center lg:gap-20 ${pathname !== "/" ? "border-b border-primary py-12" : ""}`}
       >
         <Logo />
-        <ul className="flex w-full items-center justify-between text-xl font-semibold">
-          <li>
+        <ul className="font-regular flex w-full items-center justify-between text-xl">
+          <li className={`${pathname === "/projects" ? "font-semibold" : ""}`}>
             <Link href="/projects">Projects</Link>
           </li>
-          <li>
+          <li
+            className={`${pathname === "/inprogress" ? "font-semibold" : ""}`}
+          >
             <Link href="/inprogress">Work in progress</Link>
           </li>
-          <li>
+          <li
+            className={`${pathname === "/awards-festivals" ? "font-semibold" : ""}`}
+          >
             <Link href="/awards-festivals">Awards & Festivals</Link>
           </li>
-          <li>
+          <li
+            className={`${pathname === "/exhibitions" ? "font-semibold" : ""}`}
+          >
             <Link href="/exhibitions">Exhibitions list</Link>
           </li>
-          <li>
+          <li className={`${pathname === "/about" ? "font-semibold" : ""}`}>
             <Link href="/about">About</Link>
           </li>
-          <li>
+          <li className={`${pathname === "/contact" ? "font-semibold" : ""}`}>
             <Link href="/contact">Contact</Link>
           </li>
         </ul>

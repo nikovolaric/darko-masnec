@@ -27,3 +27,17 @@ export async function getOneProject(id: string) {
     console.error(error);
   }
 }
+
+export async function getBanner() {
+  try {
+    const res = await fetch(`${process.env.API_URL}/api/banner`);
+
+    if (!res.ok) throw new Error("Something went wrong");
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}

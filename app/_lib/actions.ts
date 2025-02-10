@@ -50,13 +50,10 @@ export async function login(formData: FormData) {
       sameSite: "strict",
       expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
     });
-
-    return loggedInUser;
   } catch (err) {
     return err;
-  } finally {
-    redirect("/dashboard");
   }
+  redirect("/dashboard");
 }
 
 export async function logout() {
@@ -92,12 +89,13 @@ export async function signS3Image(key: string) {
 
 interface iData {
   title: string;
-  year?: number;
+  year?: string;
   category?: string;
   originalTitle?: string;
   director?: string;
   scriptwriters?: string;
   animation?: string;
+  screenplay?: string;
   music?: string;
   sound?: string;
   editing?: string;
@@ -128,7 +126,7 @@ export async function createProject(formData: FormData, category: string) {
 
   const data: iData = {
     title: formData.get("title") as string,
-    year: formData.get("year") ? Number(formData.get("year")) : undefined,
+    year: formData.get("year") ? (formData.get("year") as string) : undefined,
     category: category,
     originalTitle: formData.get("originalTitle")
       ? (formData.get("originalTitle") as string)
@@ -141,6 +139,9 @@ export async function createProject(formData: FormData, category: string) {
       : undefined,
     animation: formData.get("animation")
       ? (formData.get("animation") as string)
+      : undefined,
+    screenplay: formData.get("screenplay")
+      ? (formData.get("screenplay") as string)
       : undefined,
     music: formData.get("music")
       ? (formData.get("music") as string)
@@ -209,7 +210,7 @@ export async function createProject(formData: FormData, category: string) {
     revalidatePath("/dashboard/interactive-videogames");
     redirect("/dashboard/interactive-videogames");
   }
-  if (category === "installation/video") {
+  if (category === "installations/video") {
     revalidatePath("/dashboard/installation-video");
     redirect("/dashboard/installation-video");
   }
@@ -264,7 +265,7 @@ export async function deleteProject(formData: FormData, id: string) {
   if (project.category === "interactive/videogame") {
     revalidatePath("/dashboard/interactive-videogames");
   }
-  if (project.category === "installation/video") {
+  if (project.category === "installations/video") {
     revalidatePath("/dashboard/installation-video");
   }
   if (project.category === "painting") {
@@ -317,7 +318,7 @@ export async function editProject(
 
   const data: iData = {
     title: formData.get("title") as string,
-    year: formData.get("year") ? Number(formData.get("year")) : undefined,
+    year: formData.get("year") ? (formData.get("year") as string) : undefined,
     originalTitle: formData.get("originalTitle")
       ? (formData.get("originalTitle") as string)
       : undefined,
@@ -329,6 +330,9 @@ export async function editProject(
       : undefined,
     animation: formData.get("animation")
       ? (formData.get("animation") as string)
+      : undefined,
+    screenplay: formData.get("screenplay")
+      ? (formData.get("screenplay") as string)
       : undefined,
     music: formData.get("music")
       ? (formData.get("music") as string)
@@ -397,7 +401,7 @@ export async function editProject(
     revalidatePath("/dashboard/interactive-videogames");
     redirect("/dashboard/interactive-videogames");
   }
-  if (category === "installation/video") {
+  if (category === "installations/video") {
     revalidatePath("/dashboard/installation-video");
     redirect("/dashboard/installation-video");
   }
@@ -605,4 +609,127 @@ export async function sendMail(formData: FormData) {
   const result = await sendEnquiry(data);
 
   return result;
+}
+
+/*--------------------------------------------------------------------------banner-------------------------------------------------------------- */
+
+export async function createBanner(formData: FormData) {
+  try {
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const data = {
+      title: formData.get("title")
+        ? (formData.get("title") as string)
+        : undefined,
+      image: (formData.get("image") as string)
+        .toLowerCase()
+        .replaceAll(" ", "-"),
+    };
+
+    const res = await fetch(`${process.env.API_URL}/api/banner`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
+
+    revalidatePath("/");
+  } catch (error) {
+    console.log(error);
+    return (error as Error).message;
+  }
+  redirect("/dashboard");
+}
+
+export async function editBanner(formData: FormData, id: string) {
+  try {
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const data = {
+      title: formData.get("title")
+        ? (formData.get("title") as string)
+        : undefined,
+      image: formData.get("image")
+        ? (formData.get("image") as string).toLowerCase().replaceAll(" ", "-")
+        : undefined,
+    };
+
+    const res = await fetch(`${process.env.API_URL}/api/banner/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
+
+    revalidatePath("/");
+  } catch (error) {
+    console.log(error);
+    return (error as Error).message;
+  }
+  redirect("/dashboard");
+}
+
+export async function temporaryDeleteBanner(id: string) {
+  try {
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const res = await fetch(`${process.env.API_URL}/api/banner/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify({ image: "none" }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete banner");
+    }
+  } catch (error) {
+    return (error as Error).message;
+  }
 }

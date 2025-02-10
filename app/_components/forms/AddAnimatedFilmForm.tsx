@@ -122,6 +122,13 @@ function AddAnimatedFilmForm() {
         />
         <input
           type="text"
+          placeholder="Screenplay"
+          name="screenplay"
+          autoComplete="off"
+          className={input}
+        />
+        <input
+          type="text"
           placeholder="Music"
           name="music"
           autoComplete="off"

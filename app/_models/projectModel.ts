@@ -5,7 +5,7 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  year: Number,
+  year: String,
   category: {
     type: String,
     enum: [
@@ -19,6 +19,7 @@ const projectSchema = new Schema({
   director: String,
   scriptwriters: String,
   animation: String,
+  screenplay: String,
   music: String,
   sound: String,
   editing: String,

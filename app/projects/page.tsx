@@ -1,9 +1,12 @@
+import { Suspense } from "react";
 import Header from "../_components/Header";
 import AnimatedFilms from "../_components/projects/AnimatedFilms";
 import InstallationVideo from "../_components/projects/InstallationVideo";
 import InteractiveVideogame from "../_components/projects/InteractiveVideogame";
+import Paintings from "../_components/projects/Paintings";
 import ProjectsText from "../_components/projects/ProjectsText";
 import SubMenu from "../_components/projects/SubMenu";
+import Spinner from "../_components/Spinner";
 
 export async function generateMetadata({
   searchParams,
@@ -48,10 +51,25 @@ async function Page({
           <SubMenu />
         </div>
         {!params.videogame && !params.video && !params.painting && (
-          <AnimatedFilms />
+          <Suspense fallback={<Spinner />}>
+            <AnimatedFilms />
+          </Suspense>
         )}
-        {params.videogame && <InteractiveVideogame />}
-        {params.video && <InstallationVideo />}
+        {params.videogame && (
+          <Suspense fallback={<Spinner />}>
+            <InteractiveVideogame />
+          </Suspense>
+        )}
+        {params.video && (
+          <Suspense fallback={<Spinner />}>
+            <InstallationVideo />
+          </Suspense>
+        )}
+        {params.painting && (
+          <Suspense fallback={<Spinner />}>
+            <Paintings />
+          </Suspense>
+        )}
       </main>
     </>
   );

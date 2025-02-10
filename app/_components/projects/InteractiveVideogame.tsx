@@ -5,6 +5,8 @@ interface iProject {
   title: string;
   originalTitle?: string;
   description: string;
+  subtitle?: string;
+  category: string;
   mainImage: string;
   imgs: string[];
   sound?: string;
@@ -19,7 +21,7 @@ interface iProject {
   producer?: string;
   scriptwriters?: string;
   technique?: string;
-  year?: number;
+  year?: string;
   _id: string;
 }
 
@@ -27,7 +29,7 @@ async function InteractiveVideogame() {
   const { projects } = await getAllProjects("interactive/videogame");
 
   return (
-    <div className="mt-24 lg:mt-40">
+    <div className="mt-24 flex flex-col gap-20 lg:mt-40 lg:gap-52">
       {projects.map((project: iProject, i: number) => (
         <ProjectItem key={project._id} project={project} i={i} />
       ))}

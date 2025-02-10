@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Edit Interactive/Video",
+  title: "Edit Instalation/Video",
 };
 
 async function Page({ params }: { params: Promise<{ _id: string }> }) {

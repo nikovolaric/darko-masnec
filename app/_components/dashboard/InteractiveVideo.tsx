@@ -3,7 +3,7 @@ import DashboardProjectItem from "../dashboardItems/DashboardProjectItem";
 import { getAllProjects } from "@/app/_lib/projectsApi";
 
 async function InteractiveVideo() {
-  const data = await getAllProjects("installation/video");
+  const data = await getAllProjects("installations/video");
 
   const { projects } = data;
 
