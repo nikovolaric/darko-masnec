@@ -10,9 +10,9 @@ function LoginForm() {
   const [isShown, setIsShown] = useState(false);
 
   async function clientAction(formData: FormData) {
-    const result: { error?: string } = await login(formData);
+    const result = (await login(formData)) as { error?: string };
 
-    if (result?.error) {
+    if (result.error) {
       setErr(result.error);
     }
   }
