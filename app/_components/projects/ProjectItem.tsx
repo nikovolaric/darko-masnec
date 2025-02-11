@@ -66,10 +66,18 @@ function ProjectItem({ project, i }: { project: iProject; i: number }) {
 
   useEffect(
     function () {
-      document.getElementById(project._id)?.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-      });
+      if (selecetedImg) {
+        document.getElementById(project._id)?.scrollIntoView();
+        const footer = document.querySelector("footer");
+        if (footer) {
+          footer.classList.add("hidden");
+        }
+      } else {
+        const footer = document.querySelector("footer");
+        if (footer) {
+          footer.classList.remove("hidden");
+        }
+      }
 
       setTimeout(function () {
         if (selecetedImg) {

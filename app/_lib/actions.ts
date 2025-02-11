@@ -12,6 +12,7 @@ import { sendEnquiry } from "../_config/mail";
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 import User from "../_models/userModel";
+import connectDB from "../_config/database";
 
 /*---------------------------------------------------------------------auth--------------------------------------------------------------------- */
 
@@ -116,6 +117,7 @@ export async function createProject(formData: FormData, category: string) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -237,6 +239,7 @@ export async function deleteProject(formData: FormData, id: string) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -277,6 +280,7 @@ export async function temporaryDeleteImage(id: string) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -308,6 +312,7 @@ export async function editProject(
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -417,6 +422,7 @@ export async function addAward(formData: FormData) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -449,6 +455,7 @@ export async function editAward(formData: FormData, id: string) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -482,6 +489,7 @@ export async function deleteAward(formData: FormData, id: string) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -510,6 +518,7 @@ export async function deleteExhibition(formData: FormData, id: string) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -536,6 +545,7 @@ export async function addExhibition(formData: FormData) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -568,6 +578,7 @@ export async function editExhibition(formData: FormData, id: string) {
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
+  await connectDB();
   const user = await User.findById(userId);
   if (!user || user.role !== "admin") {
     cookieStorage.delete("jwt");
@@ -618,6 +629,7 @@ export async function createBanner(formData: FormData) {
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
     const user = await User.findById(userId);
     if (!user || user.role !== "admin") {
       cookieStorage.delete("jwt");
@@ -663,6 +675,7 @@ export async function editBanner(formData: FormData, id: string) {
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
     const user = await User.findById(userId);
     if (!user || user.role !== "admin") {
       cookieStorage.delete("jwt");
@@ -708,6 +721,7 @@ export async function temporaryDeleteBanner(id: string) {
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
     const user = await User.findById(userId);
     if (!user || user.role !== "admin") {
       cookieStorage.delete("jwt");

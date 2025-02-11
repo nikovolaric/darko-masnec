@@ -128,7 +128,7 @@ function EditInterActiveVideoForm({
         });
       }
 
-      await editProject(formData, "interactive/video", _id);
+      await editProject(formData, "installations/video", _id);
     } catch (error) {
       console.error(error);
     }
@@ -206,7 +206,7 @@ function EditInterActiveVideoForm({
           htmlFor="mainFile"
           className={`bg-secondary text-neutral ${file ? "" : "hover:bg-primary"} h-fit w-fit cursor-pointer rounded-md border border-gray-300 px-4 py-1 drop-shadow-md transition-colors duration-300`}
         >
-          {(mainImage && mainImage !== "none") || file ? (
+          {fileUrl ? (
             <div className="flex items-center gap-8">
               <Image
                 src={

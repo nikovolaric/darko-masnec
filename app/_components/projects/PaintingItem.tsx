@@ -21,7 +21,17 @@ function PaintingItem({
       if (selecetedImg) {
         const el = document.getElementById(project._id);
         if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
+          el.scrollIntoView();
+        }
+
+        const footer = document.querySelector("footer");
+        if (footer) {
+          footer.classList.add("hidden");
+        }
+      } else {
+        const footer = document.querySelector("footer");
+        if (footer) {
+          footer.classList.remove("hidden");
         }
       }
 
