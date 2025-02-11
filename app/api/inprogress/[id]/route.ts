@@ -79,10 +79,7 @@ export async function PATCH(
 
     const projectInProgress = await InProgress.findByIdAndUpdate(id, data);
 
-    return NextResponse.json(
-      { status: "success", projectInProgress },
-      { status: 204 },
-    );
+    return NextResponse.json({ status: "success", projectInProgress });
   } catch (error) {
     return NextResponse.json(
       { status: "error", message: (error as Error).message },

@@ -1,4 +1,6 @@
+import WorkInProgres from "@/app/_components/dashboard/WorkInProgres";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "In progress",
@@ -6,10 +8,9 @@ export const metadata: Metadata = {
 
 function Page() {
   return (
-    <div>
-      Your dedicated development team is working on this page. Please check back
-      later.
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <WorkInProgres />
+    </Suspense>
   );
 }
 

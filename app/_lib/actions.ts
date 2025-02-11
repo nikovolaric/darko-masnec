@@ -755,3 +755,131 @@ export async function temporaryDeleteBanner(id: string) {
     return (error as Error).message;
   }
 }
+
+/*---------------------------------------------------------------------work in progress-------------------------------------------------------- */
+
+export async function createWorkInProgress(formData: FormData) {
+  try {
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const data = {
+      description: formData.get("description"),
+      imgs: (formData.getAll("imgs") as string[]).map((img) =>
+        img.toLowerCase().replaceAll(" ", "-"),
+      ),
+    };
+
+    const res = await fetch(`${process.env.API_URL}/api/inprogress`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
+
+    revalidatePath("/dashboard/inprogress");
+    revalidatePath("/inprogress");
+  } catch (error) {
+    console.log(error);
+    return (error as Error).message;
+  }
+  redirect("/dashboard/inprogress");
+}
+
+export async function editWorkInProgress(formData: FormData, id: string) {
+  try {
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const data = {
+      description: formData.get("description"),
+      imgs: formData.getAll("imgs")
+        ? (formData.getAll("imgs") as string[]).map((img) =>
+            img.toLowerCase().replaceAll(" ", "-"),
+          )
+        : undefined,
+    };
+
+    const res = await fetch(`${process.env.API_URL}/api/inprogress/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
+
+    revalidatePath("/dashboard/inprogress");
+    revalidatePath("/inprogress");
+  } catch (error) {
+    console.log(error);
+    return (error as Error).message;
+  }
+  redirect("/dashboard/inprogress");
+}
+
+export async function deleteWorkInProgress(formData: FormData, id: string) {
+  try {
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const res = await fetch(`${process.env.API_URL}/api/inprogress/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: auth,
+      },
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
+
+    revalidatePath("/dashboard/inprogress");
+    revalidatePath("/inprogress");
+  } catch (error) {
+    console.log(error);
+    return (error as Error).message;
+  }
+}

@@ -41,3 +41,31 @@ export async function getBanner() {
     console.error(error);
   }
 }
+
+export async function getWorkInProgress() {
+  try {
+    const res = await fetch(`${process.env.API_URL}/api/inprogress`);
+
+    if (!res.ok) throw new Error("Something went wrong");
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getOneWorkInProgress(id: string) {
+  try {
+    const res = await fetch(`${process.env.API_URL}/api/inprogress/${id}`);
+
+    if (!res.ok) throw new Error("Something went wrong");
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
