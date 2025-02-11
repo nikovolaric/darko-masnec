@@ -43,7 +43,8 @@ function ContactForm() {
           name="message"
           className="h-80 rounded-sm border border-secondary bg-[#DDDEDF] px-4 py-0.5 text-lg"
         />
-        <p>Our privacy policy applies.</p>
+        <input type="checkbox" name="honeypot" hidden />
+        {/* <p>Our privacy policy applies.</p> */}
         {message && <p>{message}</p>}
         <div className="self-end">
           <Button />

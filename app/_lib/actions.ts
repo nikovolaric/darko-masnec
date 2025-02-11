@@ -448,6 +448,7 @@ export async function addAward(formData: FormData) {
   }
 
   revalidatePath("/dashboard/awards");
+  revalidatePath("/awards-festivals");
   redirect("/dashboard/awards");
 }
 
@@ -482,6 +483,7 @@ export async function editAward(formData: FormData, id: string) {
 
   revalidatePath("/dashboard/awards");
   revalidatePath(`/dashboard/awards/${id}`);
+  revalidatePath("/awards-festivals");
   redirect("/dashboard/awards");
 }
 
@@ -510,6 +512,7 @@ export async function deleteAward(formData: FormData, id: string) {
   }
 
   revalidatePath("/dashboard/awards");
+  revalidatePath("/awards-festivals");
 }
 
 /*------------------------------------------------------------------exhibitions----------------------------------------------------------------*/
@@ -539,6 +542,7 @@ export async function deleteExhibition(formData: FormData, id: string) {
   }
 
   revalidatePath("/dashboard/awards");
+  revalidatePath("/exhibitions");
 }
 
 export async function addExhibition(formData: FormData) {
@@ -571,6 +575,7 @@ export async function addExhibition(formData: FormData) {
   }
 
   revalidatePath("/dashboard/exhibitions");
+  revalidatePath("/exhibitions");
   redirect("/dashboard/exhibitions");
 }
 
@@ -605,12 +610,15 @@ export async function editExhibition(formData: FormData, id: string) {
 
   revalidatePath("/dashboard/exhibitions");
   revalidatePath(`/dashboard/exhibitions/${id}`);
+  revalidatePath("/exhibitions");
   redirect("/dashboard/exhibitions");
 }
 
 /*-----------------------------------------------------------------------maili-------------------------------------------------------------------*/
 
 export async function sendMail(formData: FormData) {
+  if (formData.has("honeypot")) return "error";
+
   const data = {
     name: formData.get("name") as string,
     mail: formData.get("mail") as string,

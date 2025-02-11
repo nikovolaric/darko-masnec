@@ -116,7 +116,7 @@ async function Page() {
             href="/"
             className="mt-4 rounded-md border-2 px-2 py-1 text-primary transition-colors duration-300 hover:bg-primary hover:text-white"
           >
-            &larr; Domov
+            &larr; Homepage
           </Link>
           <Logout />
         </div>

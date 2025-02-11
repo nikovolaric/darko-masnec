@@ -22,7 +22,7 @@ function LoginForm() {
       className="mx-auto flex h-dvh max-w-7xl flex-col gap-6 pt-20"
       action={clientAction}
     >
-      <h2 className="font-raj text-2xl font-bold text-primary">Vpiši se!</h2>
+      <h2 className="font-raj text-2xl font-bold text-primary">Log In!</h2>
       <div className="flex w-1/3 flex-col gap-1">
         <label>Username:</label>
         <input
@@ -34,7 +34,7 @@ function LoginForm() {
         />
       </div>
       <div className="flex w-1/3 flex-col gap-1">
-        <label>Geslo:</label>
+        <label>Password:</label>
         <div className="relative w-full">
           <input
             type={isShown ? "text" : "password"}
@@ -63,7 +63,7 @@ function LoginButton() {
       className="hover:bg-accent w-28 rounded-lg bg-primary py-1 text-lg text-neutral transition-colors duration-200 disabled:cursor-not-allowed disabled:bg-gray-400"
       disabled={pending}
     >
-      {!pending ? "Vpiši se" : "..."}
+      {!pending ? "Log In" : "..."}
     </button>
   );
 }

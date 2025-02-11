@@ -3,7 +3,7 @@ import { createTransport, TransportOptions } from "nodemailer";
 const transporterOptions = {
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
-  // secure: true,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD,
@@ -20,10 +20,10 @@ export async function sendEnquiry(options: {
 
   //2. Define the email options
   const mailOptions = {
-    from: "darkomasnec@lamastrategies.com",
+    from: "info@lamastrategies.com",
     to: "snec20@gmail.com",
     subject: "Enquiry",
-    html: `<div style='font-family:Verdana'>Ime in priimek:${
+    html: `<div style='font-family:Verdana'>Name:${
       options.name
     }<br/>Mail:${options.mail}<br/><br/>${options.message.replaceAll("\r\n", "<br/>")}`,
   };
