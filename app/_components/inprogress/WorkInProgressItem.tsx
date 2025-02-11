@@ -59,6 +59,7 @@ function WorkInProgressItem({
               width={1920}
               height={1080}
               className="mx-auto h-fit w-auto object-cover md:w-auto lg:max-h-[80dvh] lg:max-w-[75%] xl:max-w-[66%]"
+              quality={100}
             />
             {imgs.length > 1 && (
               <div className="mx-auto mt-4 grid grid-cols-4 gap-2 md:w-11/12 md:grid-cols-5 lg:flex lg:w-3/4 lg:items-center lg:justify-center lg:gap-4 xl:w-2/3">

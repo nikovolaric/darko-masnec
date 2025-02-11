@@ -7,7 +7,7 @@ async function CollabsList() {
   return (
     <div className="flex flex-col gap-8 lg:mx-auto lg:w-5/6">
       <h5 className="text-xl font-semibold tracking-more lg:text-2xl">
-        Collaborations, project, workshops::
+        Collaborations, project, workshops:
       </h5>
       <div className="flex flex-col gap-4 lg:gap-5">
         {exhibitions.map(
