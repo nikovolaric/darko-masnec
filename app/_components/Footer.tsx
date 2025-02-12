@@ -12,7 +12,7 @@ function Footer() {
     >
       <div className="mx-4 flex max-w-[1440px] flex-col gap-6 text-sm md:mx-8 lg:mx-20 lg:grid lg:grid-cols-2 lg:text-base xl:mx-auto xl:px-20">
         <p className="font-semibold">
-          Darko Masnec. &copy; All rights reserved, 2025.
+          Darko Masnec. &copy; All rights reserved, {new Date().getFullYear()}.
         </p>
         <p className="lg:order-3">
           Text, photo, graphic, audio and/or video material or other materials
