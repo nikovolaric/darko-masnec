@@ -12,6 +12,7 @@ const awardSchema = new Schema({
     required: true,
   },
   type: String,
+  institute: String,
 });
 
 const Award = models.Award || model("Award", awardSchema);

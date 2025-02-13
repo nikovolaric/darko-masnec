@@ -88,7 +88,7 @@ function WorkInProgressItem({
             alt={description}
             width={1920}
             height={1080}
-            className="h-full w-full object-cover hover:cursor-pointer"
+            className="h-full w-full object-cover hover:cursor-pointer lg:h-[350px]"
             onClick={() => handleClick(img)}
           />
         ))}

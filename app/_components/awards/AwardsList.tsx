@@ -18,6 +18,7 @@ async function AwardsList() {
             location: string;
             type?: string;
             _id: string;
+            institute?: string;
           }) => (
             <AwardsListItem award={el} key={el._id} />
           ),

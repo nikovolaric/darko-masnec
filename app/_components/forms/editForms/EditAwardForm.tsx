@@ -16,9 +16,10 @@ function EditAwardForm({
     location: string;
     type: string;
     _id: string;
+    institute?: string;
   };
 }) {
-  const { awardTitle, year, festival, location, type, _id } = award;
+  const { awardTitle, year, festival, location, type, _id, institute } = award;
 
   return (
     <form
@@ -67,6 +68,14 @@ function EditAwardForm({
           autoComplete="off"
           className={input}
           defaultValue={type}
+        />
+        <input
+          type="text"
+          placeholder="Institution"
+          name="institute"
+          autoComplete="off"
+          className={input}
+          defaultValue={institute}
         />
       </div>
       <div className="self-end">
