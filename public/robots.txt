@@ -1,2 +1,5 @@
 user-agent: *
-Disallow: /
+Disallow: /login
+Disallow: /dashboard
+
+sitemap: https://www.darkomasnec.com/sitemap.xml
