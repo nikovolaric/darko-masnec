@@ -48,14 +48,14 @@ function NavMenu() {
               />
               <ul className="mt-10 flex flex-col gap-8 text-xl">
                 <li
-                  className={`${pathname === "/projects" ? "font-semibold" : ""}`}
-                >
-                  <Link href="/projects">Projects</Link>
-                </li>
-                <li
                   className={`${pathname === "/inprogress" ? "font-semibold" : ""}`}
                 >
                   <Link href="/inprogress">Work in progress</Link>
+                </li>
+                <li
+                  className={`${pathname === "/projects" ? "font-semibold" : ""}`}
+                >
+                  <Link href="/projects">Projects</Link>
                 </li>
                 <li
                   className={`${pathname === "/awards-festivals" ? "font-semibold" : ""}`}
@@ -87,13 +87,13 @@ function NavMenu() {
       >
         <Logo />
         <ul className="font-regular flex w-full items-center justify-between text-xl">
-          <li className={`${pathname === "/projects" ? "font-semibold" : ""}`}>
-            <Link href="/projects">Projects</Link>
-          </li>
           <li
             className={`${pathname === "/inprogress" ? "font-semibold" : ""}`}
           >
             <Link href="/inprogress">Work in progress</Link>
+          </li>
+          <li className={`${pathname === "/projects" ? "font-semibold" : ""}`}>
+            <Link href="/projects">Projects</Link>
           </li>
           <li
             className={`${pathname === "/awards-festivals" ? "font-semibold" : ""}`}
