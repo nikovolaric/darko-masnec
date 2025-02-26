@@ -114,6 +114,7 @@ interface iData {
 }
 
 export async function createProject(formData: FormData, category: string) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -236,6 +237,7 @@ export async function signS3ImageToDelete(key: string) {
 }
 
 export async function deleteProject(formData: FormData, id: string) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -277,6 +279,7 @@ export async function deleteProject(formData: FormData, id: string) {
 }
 
 export async function temporaryDeleteImage(id: string) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -309,6 +312,7 @@ export async function editProject(
   category: string,
   id: string,
 ) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -419,6 +423,7 @@ export async function editProject(
 /*----------------------------------------------------------------------awards------------------------------------------------------------------ */
 
 export async function addAward(formData: FormData) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -453,6 +458,7 @@ export async function addAward(formData: FormData) {
 }
 
 export async function editAward(formData: FormData, id: string) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -488,6 +494,7 @@ export async function editAward(formData: FormData, id: string) {
 }
 
 export async function deleteAward(formData: FormData, id: string) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -518,6 +525,7 @@ export async function deleteAward(formData: FormData, id: string) {
 /*------------------------------------------------------------------exhibitions----------------------------------------------------------------*/
 
 export async function deleteExhibition(formData: FormData, id: string) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -546,6 +554,7 @@ export async function deleteExhibition(formData: FormData, id: string) {
 }
 
 export async function addExhibition(formData: FormData) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -580,6 +589,7 @@ export async function addExhibition(formData: FormData) {
 }
 
 export async function editExhibition(formData: FormData, id: string) {
+  await connectDB();
   const cookieStorage = await cookies();
   const session = cookieStorage.get("jwt")?.value as string;
   const { id: userId }: { id: string } = await jwtDecode(session);
@@ -634,6 +644,7 @@ export async function sendMail(formData: FormData) {
 
 export async function createBanner(formData: FormData) {
   try {
+    await connectDB();
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
@@ -680,6 +691,7 @@ export async function createBanner(formData: FormData) {
 
 export async function editBanner(formData: FormData, id: string) {
   try {
+    await connectDB();
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
@@ -726,6 +738,7 @@ export async function editBanner(formData: FormData, id: string) {
 
 export async function temporaryDeleteBanner(id: string) {
   try {
+    await connectDB();
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
@@ -760,6 +773,7 @@ export async function temporaryDeleteBanner(id: string) {
 
 export async function createWorkInProgress(formData: FormData) {
   try {
+    await connectDB();
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
@@ -805,6 +819,7 @@ export async function createWorkInProgress(formData: FormData) {
 
 export async function editWorkInProgress(formData: FormData, id: string) {
   try {
+    await connectDB();
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
@@ -852,6 +867,7 @@ export async function editWorkInProgress(formData: FormData, id: string) {
 
 export async function deleteWorkInProgress(formData: FormData, id: string) {
   try {
+    await connectDB();
     const cookieStorage = await cookies();
     const session = cookieStorage.get("jwt")?.value as string;
     const { id: userId }: { id: string } = await jwtDecode(session);
