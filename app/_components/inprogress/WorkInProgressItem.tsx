@@ -42,7 +42,7 @@ function WorkInProgressItem({
   }
 
   return (
-    <div className="flex flex-col gap-16 lg:gap-24" id={_id}>
+    <div className="flex flex-col gap-10 lg:gap-16" id={_id}>
       {selecetedImg && (
         <div className={`${selecetedImg ? "absolute left-0" : "relative"}`}>
           <div

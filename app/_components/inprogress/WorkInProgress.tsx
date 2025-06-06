@@ -14,7 +14,7 @@ async function WorkInProgress() {
     );
 
   return (
-    <div>
+    <div className="flex flex-col gap-16 lg:gap-24">
       {projectsInProgress.map(
         (project: { description: string; imgs: string[]; _id: string }) => (
           <WorkInProgressItem key={project._id} project={project} />

@@ -899,3 +899,140 @@ export async function deleteWorkInProgress(formData: FormData, id: string) {
     return (error as Error).message;
   }
 }
+
+/*--------------------------------------------------------------------------banner-------------------------------------------------------------- */
+
+export async function createBio(formData: FormData) {
+  try {
+    await connectDB();
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const data = {
+      upperText: formData.get("upperText")
+        ? (formData.get("upperText") as string)
+        : undefined,
+      lowerText: formData.get("lowerText")
+        ? (formData.get("lowerText") as string)
+        : undefined,
+      image: (formData.get("image") as string)
+        .toLowerCase()
+        .replaceAll(" ", "-"),
+    };
+
+    const res = await fetch(`${process.env.API_URL}/api/bio`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
+
+    revalidatePath("/about");
+    revalidatePath("/dashboard/bio");
+  } catch (error) {
+    console.log(error);
+    return (error as Error).message;
+  }
+  redirect("/dashboard");
+}
+
+export async function editBio(formData: FormData, id: string) {
+  try {
+    await connectDB();
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const data = {
+      upperText: formData.get("upperText")
+        ? (formData.get("upperText") as string)
+        : undefined,
+      lowerText: formData.get("lowerText")
+        ? (formData.get("lowerText") as string)
+        : undefined,
+      image: formData.get("image")
+        ? (formData.get("image") as string).toLowerCase().replaceAll(" ", "-")
+        : undefined,
+    };
+
+    const res = await fetch(`${process.env.API_URL}/api/bio/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
+
+    revalidatePath("/about");
+    revalidatePath("/dashboard/bio");
+  } catch (error) {
+    console.log(error);
+    return (error as Error).message;
+  }
+  redirect("/dashboard");
+}
+
+export async function temporaryDeleteBioImage(id: string) {
+  try {
+    await connectDB();
+    const cookieStorage = await cookies();
+    const session = cookieStorage.get("jwt")?.value as string;
+    const { id: userId }: { id: string } = await jwtDecode(session);
+    await connectDB();
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      cookieStorage.delete("jwt");
+      redirect("/login");
+    }
+
+    const auth = "Bearer " + session;
+
+    const res = await fetch(`${process.env.API_URL}/api/bio/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        authorization: auth,
+      },
+      body: JSON.stringify({ image: "none" }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete banner");
+    }
+  } catch (error) {
+    return (error as Error).message;
+  }
+}

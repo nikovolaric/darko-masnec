@@ -1,6 +1,7 @@
 import {
   AdjustmentsHorizontalIcon,
   CodeBracketIcon,
+  FaceSmileIcon,
   FilmIcon,
   ListBulletIcon,
   PaintBrushIcon,
@@ -107,6 +108,17 @@ async function Page() {
               Homepage banner
               <span className="flex justify-center">
                 <AdjustmentsHorizontalIcon className="h-6" />
+              </span>
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/dashboard/bio"
+              className="flex flex-col border-2 bg-gray-100 py-12 drop-shadow-lg transition-colors duration-300 hover:bg-gray-300"
+            >
+              About Darko
+              <span className="flex justify-center">
+                <FaceSmileIcon className="h-6" />
               </span>
             </Link>
           </div>

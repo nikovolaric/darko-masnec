@@ -22,7 +22,7 @@ async function Page() {
         {banners.length === 0 ? "Add" : "Edit"} homepage banner
       </h3>
       {banners.length === 0 && <AddBannerForm />}
-      {banners && <EditBannerForm banner={banners[0]} />}
+      {banners.length>0 && <EditBannerForm banner={banners[0]} />}
       <Link
         href="/dashboard"
         className="mt-10 w-fit rounded-md border bg-primary px-4 py-1 text-neutral drop-shadow-lg transition-colors duration-300 hover:bg-secondary"
