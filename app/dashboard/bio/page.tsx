@@ -13,6 +13,8 @@ export async function generateMetadata() {
   return { title: "Edit bio data" };
 }
 
+export const dynamic = "force-dynamic";
+
 async function Page() {
   const { bios } = await getBio();
 
